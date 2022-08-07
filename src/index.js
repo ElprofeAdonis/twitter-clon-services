@@ -106,7 +106,7 @@ app.put("/editar_tweet/:id", async (req, res) => {
     res.json({ error: `El tweet con el id ${id} no existe` });
   }
 });
-
+// CRUD darle megusta a un tweet
 app.get("/tweet_likes/:tweetId", async (req, res) => {
   const { tweetId } = req.params;
   const result = await prisma.likes.findMany({
@@ -134,6 +134,57 @@ app.delete(`/borrar_like/:usuarioId/:tweetId`, async (req, res) => {
     },
   });
   res.json(`El like al tweet con el id ${tweetId} fue eliminada exitosamente`);
+});
+
+// CRUD Comentarios asi el tweet
+app.post("/crear_comentario", async (req, res) => {
+  const result = await prisma.comentarios.create({
+    data: req.body,
+  });
+  res.json(result);
+});
+
+app.delete(`/borrar_comentario/:tweetId/:usuarioId`, async (req, res) => {
+  const { comentario, foto, usuarioId, tweetId } = req.params;
+  const tweet = await prisma.comentarios.deleteMany({
+    where: {
+      comentario: String(comentario),
+      foto: String(foto),
+      tweetId: Number(tweetId),
+      usuarioId: Number(usuarioId),
+    },
+  });
+  res.json(
+    `El comentario al tweet con el id ${tweetId} fue eliminada exitosamente`
+  );
+});
+// CRUD darle megusta a un tweet
+app.get("/comentario_tweet/:tweetId", async (req, res) => {
+  const { tweetId } = req.params;
+  const result = await prisma.comentarios.findMany({
+    where: {
+      tweetId: Number(tweetId),
+    },
+  });
+  res.json({ comentario: result.length });
+});
+
+// CRUD Follws usuarios
+app.post("/crear_follws", async (req, res) => {
+  const result = await prisma.follows.create({
+    data: req.body,
+  });
+  res.json(result);
+});
+
+app.delete(`/borrar_follws/:usuarioId/`, async (req, res) => {
+  const { usuarioId } = req.params;
+  const tweet = await prisma.likes.deleteMany({
+    where: {
+      usuarioId: Number(usuarioId),
+    },
+  });
+  res.json(`Ya no siges al ${usuarioId} piensalo`);
 });
 
 app.use((req, res, next) => {
