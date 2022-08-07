@@ -9,3 +9,40 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuarios {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  nombre  String
+  apellido  String
+  edad  String?
+  password  String
+  foto  String?
+}
+
+model Tweets {
+  id        Int     @default(autoincrement()) @id
+  comentario     String
+  foto  String?
+  autorId  Int
+}
+
+model Likes {
+  id        Int     @default(autoincrement()) @id
+  usuarioId  Int
+  tweetId  Int
+}
+
+model Comentarios {
+  id        Int     @default(autoincrement()) @id
+  comentario     String
+  foto  String?
+  tweetId  Int
+  usuarioId  Int
+}
+
+model Follows {
+  id        Int     @default(autoincrement()) @id
+  usuarioId  Int
+  usuarioSeguirId  Int
+}
