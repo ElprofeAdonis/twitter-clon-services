@@ -1,0 +1,19 @@
+{
+  "name": "twitter-clon-services",
+  "version": "1.0.0",
+  "description": "API de twitter clon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElprofeAdonis/twitter-clon-services.git"
+  },
+  "author": "Adonis Aleman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElprofeAdonis/twitter-clon-services/issues"
+  },
+  "homepage": "https://github.com/ElprofeAdonis/twitter-clon-services#readme"
+}
