@@ -177,11 +177,12 @@ app.post("/crear_follws", async (req, res) => {
   res.json(result);
 });
 
-app.delete(`/borrar_follws/:usuarioId/`, async (req, res) => {
-  const { usuarioId } = req.params;
-  const tweet = await prisma.likes.deleteMany({
+app.delete(`/borrar_follws/:usuarioId/:usuarioSeguirId`, async (req, res) => {
+  const { usuarioId, usuarioSeguirId } = req.params;
+  const tweet = await prisma.follows.deleteMany({
     where: {
       usuarioId: Number(usuarioId),
+      usuarioSeguirId: Number(usuarioSeguirId),
     },
   });
   res.json(`Ya no siges al ${usuarioId} piensalo`);
