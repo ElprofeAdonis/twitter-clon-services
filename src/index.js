@@ -185,7 +185,7 @@ app.delete(`/borrar_follws/:usuarioId/:usuarioSeguirId`, async (req, res) => {
       usuarioSeguirId: Number(usuarioSeguirId),
     },
   });
-  res.json(`Ya no siges al ${usuarioId} piensalo`);
+  res.json(`Ya no siges al usuario ${usuarioId} piensalo`);
 });
 
 app.use((req, res, next) => {
