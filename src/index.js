@@ -107,6 +107,35 @@ app.put("/editar_tweet/:id", async (req, res) => {
   }
 });
 
+app.get("/tweet_likes/:tweetId", async (req, res) => {
+  const { tweetId } = req.params;
+  const result = await prisma.likes.findMany({
+    where: {
+      tweetId: Number(tweetId),
+    },
+  });
+  res.json({ likes: result.length });
+});
+
+// CRUD Likes
+app.post("/crear_like", async (req, res) => {
+  const result = await prisma.likes.create({
+    data: req.body,
+  });
+  res.json(result);
+});
+
+app.delete(`/borrar_like/:usuarioId/:tweetId`, async (req, res) => {
+  const { usuarioId, tweetId } = req.params;
+  const tweet = await prisma.likes.deleteMany({
+    where: {
+      usuarioId: Number(usuarioId),
+      tweetId: Number(tweetId),
+    },
+  });
+  res.json(`El like al tweet con el id ${tweetId} fue eliminada exitosamente`);
+});
+
 app.use((req, res, next) => {
   res.status(404);
   return res.json({
